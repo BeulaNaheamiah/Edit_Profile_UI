@@ -1,0 +1,136 @@
+<div class="container">
+    <h1>Edit Profile</h1>  <img [src]="profileDetails.profilePicture"  alt="Profile Pic" class="img-circle" style="text-align: right;width: 100px;height: 100px; ">
+    <hr>
+    <form #f="ngForm" name="editForm" > 
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="profileDetails.displayName" required maxlength="255" 
+            #dispName="ngModel" name="displayName">
+            <div [hidden]="dispName.valid || dispName.pristine"
+                class="alert alert-danger">
+            Display Name is required
+            </div>
+           
+      </div>
+
+      <div class="form-group">
+        <label for="realName">Real Name</label>
+        <input type="text" [(ngModel)]="profileDetails.realName" required maxlength="255" id="realName"   #realName="ngModel"  name="realName">
+        <div [hidden]="realName.valid || realName.pristine"
+                class="alert alert-danger">
+            Real Name is required
+            </div>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="ethnicity">Ethnicity</label>
+        <select name="ethnicity" [(ngModel)] = "profileDetails.ethnicity"  id="ethnicity">
+            <option value="">Select Ethnicity</option>           
+            <option *ngFor="let ethnicity of ethnicityList" [ngValue]="ethnicity.id" name="profileDetails.ethnicity" >{{ethnicity.name}}</option>
+        </select>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="religion">Religion</label>
+        <select name="religion" [(ngModel)] = "profileDetails.religion"  id="religion">
+            <option value="">Select Ethnicity</option>
+             <option *ngFor="let religion of religions" [ngValue]="religion.id" name="profileDetails.religion" >{{religion.name}}</option>
+        </select>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="maritalStatus">Marital Status</label>
+        <select [(ngModel)]="profileDetails.maritalStatus" #marital="ngModel" required name="maritalStatus" id="maritalStatus">
+            <option value="">Select</option>
+        <option *ngFor="let marital of maritalStatus" [ngValue]="marital.id"  name="profileDetails.maritalStatus"  >{{marital.name}}</option>
+        </select>
+        <div [hidden]="marital.valid || marital.pristine"
+                class="alert alert-danger">
+            Marital Status  is required
+            </div>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <select [(ngModel)]="profileDetails.gender" #gender="ngModel" required name="gender" id="gender">
+          <option value="">Select</option>
+        <option *ngFor="let g of genderList" [ngValue]="g.id"  name="profileDetails.gender"  >{{g.name}}</option>
+      </select>
+        <div [hidden]="gender.valid || gender.pristine"
+                class="alert alert-danger">
+           Gender is required
+            </div>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="birthDay">Birth Day </label>
+                <input type="date" id="birthDay" name="birthDay"   [(ngModel)]="profileDetails.dob"  #birthDay="ngModel" width="300px" required>
+       
+        <div [hidden]="birthDay.valid" class="alert alert-danger">
+            Birth Day is Required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="profilePic">Profile Picture</label>
+        <input type="file"
+        id="profilePic" name="profilePic"
+        (change)="handleFileInput($event.target.files)" >
+      </div>
+
+      <div class="form-group">
+        <label for="height">Height</label>
+        <input type="text" [ngModel]="profileDetails.height"  readonly style="background-color: gray;" maxlength="255" id="height" name="height">
+      </div>
+
+      <div class="form-group">
+        <label for="figure">Figure</label>
+        <select [(ngModel)]="profileDetails.figure" #figure="ngModel" required name="figure" id="figure">
+          <option value="">Select</option>
+        <option *ngFor="let fig of figureList" [ngValue]="fig.id"  name="profileDetails.figure"  >{{fig.name}}</option>
+      </select>
+      </div>
+
+      <div class="form-group">
+        <label for="occupation">Occupation</label>
+        <input type="text" [(ngModel)]="profileDetails.occupation"  maxlength="255" id="occupation" name="occupation">
+      </div>
+
+      <div class="form-group">
+        <label for="aboutMe">About Me</label>
+        <input type="text" [(ngModel)]="profileDetails.aboutMe"  maxlength="5000" id="aboutMe" name="aboutMe">
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <ejs-autocomplete name="location" #value='ngModel' id="location"  [(ngModel)]='profileDetails.location' required
+            allowCustom=false [dataSource]='locationList' [fields]='fields' [placeholder]='placeHolder'
+            floatLabelType='Auto'>
+        </ejs-autocomplete>
+      </div>
+    <hr>
+      <div class="form-group">
+        <div style="padding: 10px 0">
+          <input type="text" placeholder="Search places..." #loc='ngModel'  [ngModel]="profileDetails.location"   name="findLocation" id="findLocation" />
+          <button (click)="map.places(loc.value)">Search</button>
+      </div>
+
+        <here-map
+        #map
+        appId="YNKygSzRy9cTieNP2bjZ"
+        appCode="a3bZBRmOKhlXXk4rMt9kEw"
+        lat="51.1657"
+        lng="10.4515"
+        width="75%"
+        height="530px">
+    </here-map>
+      </div>
+      <button type="submit" [disabled] = "f.invalid" (click)="updateProfile()"  class="btn btn-success">Submit</button>
+
+    </form>
+</div>
