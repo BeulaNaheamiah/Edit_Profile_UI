@@ -1,4 +1,7 @@
 # EditiProfile
+1. Run with "NPM Start" or ng serve --proxy-config proxy.conf.json
+
+Common:
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
 

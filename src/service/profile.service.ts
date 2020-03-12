@@ -47,8 +47,9 @@ getLocation():Observable<Cities>{
    return this.http.get<Cities>('/api/get/cities');
 }
 
-getProfileData():Observable<ProfileDetails>{
-    return this.http.get<ProfileDetails>('/api/profile/get');
+getProfileData(profileId:string):Observable<ProfileDetails>{
+    console.log(profileId)
+    return this.http.get<ProfileDetails>('/api/profile/get?profileId='+profileId);
 }
 
 }

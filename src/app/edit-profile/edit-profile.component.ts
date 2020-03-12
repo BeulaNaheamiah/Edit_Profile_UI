@@ -50,7 +50,7 @@ export class EditProfileComponent implements OnInit {
    this.profileService.getLocation().subscribe(c => {
           this.locationList = c.cities;
    });
-   this.profileService.getProfileData().subscribe(p => {
+   this.profileService.getProfileData(this.profileDetails.profileId).subscribe(p => {
    this.profileDetails=p;
    this.base64Image=this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+p.profilePicture);
    this.child.places(p.location);
